@@ -1,0 +1,149 @@
+/* CHAT CONTAINER - Full-width, no visible box */
+.chat-container {
+  width: 90vw;
+  max-width: 800px;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 0;
+  background: transparent;
+}
+
+/* CHAT HEADER */
+.chat-header {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  text-align: left;
+  padding: 16px;
+  border-bottom: 1px solid #333;
+}
+
+/* CHAT MESSAGES SECTION */
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: #555 transparent;
+  align-items: flex-start;
+
+}
+
+/* SCROLLBAR STYLE */
+.messages-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 4px;
+}
+
+/* MESSAGE LAYOUT */
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 65%;
+  margin-bottom: 12px;
+}
+
+.message.same-user {
+  /* Tweak these values to reduce the gap */
+  margin-top: -6px;   /* Pull it closer to the previous bubble */
+  margin-bottom: 6px; /* Slight gap below */
+}
+
+/* ALIGN USER MESSAGE RIGHT */
+.message.user {
+  align-self: flex-end;
+  text-align: right;
+  margin-left: auto;
+  margin-top: -6px;   /* Pull it closer to the previous bubble */
+  margin-bottom: 6px;
+}
+
+/* ALIGN OTHER USERS LEFT */
+.message.other {
+  align-self: flex-start;
+  text-align: left;
+}
+
+/* USERNAME TEXT (Outside the bubble) */
+.message-username {
+  display: block; 
+  font-size: 12px;
+  color: #aaa;
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+
+/* MESSAGE BUBBLES */
+
+.message-bubble {
+  display: block; 
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-size: 16px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  max-width: fit-content;
+  display: inline-block;
+}
+
+/* SENDER MESSAGE BUBBLE */
+.message.user .message-bubble {
+  background-color: #0078ff;
+  color: white;
+  border-bottom-right-radius: 4px;
+  text-align: right;
+  margin-left: auto;
+  
+}
+
+/* OTHER USERS' MESSAGE BUBBLE */
+.message.other .message-bubble {
+  background-color: #333;
+  color: white;
+  border-bottom-left-radius: 4px;
+  text-align: left;
+}
+
+/* CHAT INPUT SECTION */
+.chat-input {
+  display: flex;
+  padding: 16px;
+  align-items: center;
+  gap: 12px;
+}
+
+/* INPUT FIELD */
+.chat-input input {
+  flex: 1;
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid #444;
+  background-color: #333;
+  color: white;
+  outline: none;
+  font-size: 16px;
+}
+
+/* SEND BUTTON */
+.chat-input button {
+  background-color: #0078ff;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  padding: 14px 22px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.chat-input button:hover {
+  background-color: #0056b3;
+}
