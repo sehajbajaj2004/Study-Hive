@@ -1,0 +1,183 @@
+/* General Styling */
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* 📽 Background Video */
+  .personal-study-room {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(50%); /* Darken video slightly */
+  }
+  
+  /* 📌 Sidebar */
+  .sidebar {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent */
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+  }
+  
+  .sidebar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    transition: 0.3s;
+  }
+  
+  .sidebar button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+  }
+  
+  /* 🎵 Media Player */
+  .media-player {
+    position: absolute;
+    right: 20px;
+    top: 10%;
+    width: 300px;
+    background: rgba(20, 20, 50, 0.8);
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+    backdrop-filter: blur(15px);
+  }
+  
+  .media-player h3 {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .media-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .media-controls button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .media-controls button:hover {
+    color: #f39c12; /* Highlight on hover */
+  }
+  
+  /* 📌 Content Area */
+  .content {
+    position: absolute;
+    bottom: 50px;
+    color: white;
+    text-align: center;
+  }
+  
+  .content h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .content p {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  /*Timer Css*/
+  .timer-container {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.timer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.timer h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+.timer-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.timer-controls button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #f39c12;
+    color: white;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.timer-controls button:hover {
+    background: #e67e22;
+}
+
+.close-btn {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 10px;
+    cursor: pointer;
+    color: #e74c3c;
+}
+
+.close-btn:hover {
+    color: #c0392b;
+}

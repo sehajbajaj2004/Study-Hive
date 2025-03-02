@@ -12,6 +12,7 @@
         "dotenv": "^16.4.7",
         "express": "^4.21.2",
         "firebase-admin": "^11.11.1",
-        "socket.io": "^4.8.1"
+        "socket.io": "^4.8.1",
+        "study-hive-backend": "file:"
     }
 }

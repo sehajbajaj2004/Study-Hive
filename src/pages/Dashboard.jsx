@@ -21,6 +21,12 @@ const Dashboard = () => {
         >
           Create a Study Group
         </button>
+        <button
+          onClick={() => navigate("/personal-study-room")}
+          className="bg-green-500 px-6 py-3 rounded-md text-white text-lg"
+        >
+          Personal Study Room
+        </button>
       </div>
     </div>
   );
