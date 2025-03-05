@@ -11,8 +11,13 @@ const PersonalStudyRoom = () => {
   const mediaRef = useRef(null);
   const contentRef = useRef(null);
   const timerRef = useRef(null);
+  const tasksRef = useRef(null);
 
   const [showTimer, setShowTimer] = useState(false);
+  const [showTasks, setShowTasks] = useState(false);
+  const [tasks, setTasks] = useState([]);
+  const [taskInput, setTaskInput] = useState("");
+  
   const [time, setTime] = useState(25 * 60); // 25-minute Pomodoro session
   const [isRunning, setIsRunning] = useState(false);
   const [mode, setMode] = useState("Work");
@@ -31,12 +36,30 @@ const PersonalStudyRoom = () => {
   const switchMode = () => {
     if (mode === "Work") {
       setMode("Break");
-      setTime(5 * 60); 
+      setTime(5 * 60);
     } else {
       setMode("Work");
       setTime(25 * 60);
     }
     setIsRunning(false);
+  };
+
+  // Task Management
+  const addTask = () => {
+    if (taskInput.trim() !== "") {
+      setTasks([...tasks, { text: taskInput, completed: false }]);
+      setTaskInput("");
+    }
+  };
+
+  const removeTask = (index) => {
+    setTasks(tasks.filter((_, i) => i !== index));
+  };
+
+  const toggleCompleteTask = (index) => {
+    const newTasks = [...tasks];
+    newTasks[index].completed = !newTasks[index].completed;
+    setTasks(newTasks);
   };
 
   return (
@@ -51,7 +74,9 @@ const PersonalStudyRoom = () => {
           <button onClick={() => setShowTimer(!showTimer)}>
             <FaClock /> Timer
           </button>
-          <button><FaTasks /> Tasks</button>
+          <button onClick={() => setShowTasks(!showTasks)}>
+            <FaTasks /> Tasks
+          </button>
           <button><FaStickyNote /> Notes</button>
         </div>
       </Draggable>
@@ -68,7 +93,7 @@ const PersonalStudyRoom = () => {
         </div>
       </Draggable>
 
-      {/* Draggable Timer Window (Persists Even When Closed) */}
+      {/* Draggable Timer Window */}
       {showTimer && (
         <Draggable nodeRef={timerRef} positionOffset={{ x: "0%", y: "0%" }} bounds="parent">
           <div ref={timerRef} className="timer-container">
@@ -81,6 +106,33 @@ const PersonalStudyRoom = () => {
               switchMode={switchMode}
             />
             <button className="close-btn" onClick={() => setShowTimer(false)}>❌</button>
+          </div>
+        </Draggable>
+      )}
+
+      {/* Draggable Task Window */}
+      {showTasks && (
+        <Draggable nodeRef={tasksRef} positionOffset={{ x: "0%", y: "0%" }} bounds="parent">
+          <div ref={tasksRef} className="task-container">
+            <h3>Tasks</h3>
+            <div className="task-input">
+              <input
+                type="text"
+                value={taskInput}
+                onChange={(e) => setTaskInput(e.target.value)}
+                placeholder="Enter task..."
+              />
+              <button onClick={addTask}>Add</button>
+            </div>
+            <ul className="task-list">
+              {tasks.map((task, index) => (
+                <li key={index} className={task.completed ? "completed" : ""}>
+                  <span onClick={() => toggleCompleteTask(index)}>{task.text}</span>
+                  <button className="task-close-btn" onClick={() => removeTask(index)}>❌</button>
+                </li>
+              ))}
+            </ul>
+            <button className="close-btn" onClick={() => setShowTasks(false)}>❌</button>
           </div>
         </Draggable>
       )}

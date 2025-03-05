@@ -4,6 +4,7 @@ body, html {
     padding: 0;
     overflow: hidden; 
     font-family: 'Poppins', sans-serif;
+    color: white;
   }
   
   /* 📽 Background Video */
@@ -180,4 +181,79 @@ body, html {
 
 .close-btn:hover {
     color: #c0392b;
+}
+
+/*Task Css*/
+.task-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  backdrop-filter: blur(10px);
+}
+
+.task-input {
+  display: flex;
+  gap: 10px;
+}
+
+.task-input input {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.task-input button {
+  padding: 5px 10px;
+  background: #f39c12;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.task-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.task-list li.completed span {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.close-btn {
+  position: absolute;
+    top: 10px;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 10px;
+    cursor: pointer;
+    color: #e74c3c;
+}
+.task-close-btn{
+    position: absolute;
+    background: none;
+    border: none;
+    Right: 5px;
+    font-size: 10px;
+    cursor: pointer;
+    color: #e74c3c;
 }
