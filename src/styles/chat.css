@@ -1,4 +1,8 @@
 /* CHAT CONTAINER - Full-width, no visible box */
+*{
+  color: white;
+}
+
 .chat-container {
   width: 90vw;
   max-width: 800px;
@@ -8,6 +12,8 @@
   margin: auto;
   padding: 0;
   background: transparent;
+  color: black;
+  background-color: #101828;
 }
 
 /* CHAT HEADER */
