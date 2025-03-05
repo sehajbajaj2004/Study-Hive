@@ -1,3 +1,4 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import JoinGroup from "./pages/JoinGroup";
@@ -10,7 +11,6 @@ import PersonalStudyRoom from "./pages/PersonalStudyRoom";
 function App() {
   return (
     <Routes>
-      {/* ✅ Fix: Make sure the home route ("/") is defined */}
       <Route path="/" element={<LandingPage />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/join-group" element={<JoinGroup />} />
