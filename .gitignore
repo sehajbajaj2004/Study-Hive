@@ -1,4 +1,10 @@
-.env
+# Ignore environment files
+backend.env
+*.env
+
+# Ignore Firebase/Service Account JSON keys
+backend/serviceAccountKey.json
+*.serviceAccountKey.json
 
 # Logs
 logs
