@@ -66,7 +66,7 @@ body, html {
   .media-player {
     position: absolute;
     right: 20px;
-    top: 10%;
+    top: 5%;
     width: 300px;
     background: rgba(20, 20, 50, 0.8);
     padding: 15px;
@@ -76,13 +76,18 @@ body, html {
   }
   
   .media-player h3 {
-    margin: 0;
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    padding: 2px;
     font-size: 16px;
-  }
+    justify-content: flex-start; 
+}
+
   
   .media-controls {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin-top: 10px;
   }
   
@@ -118,77 +123,104 @@ body, html {
     opacity: 0.8;
   }
 
-  /*Timer Css*/
-  .timer-container {
-    position: absolute;
-    top: 5%;
-    left: 5%;
-    transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.1);
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-    backdrop-filter: blur(10px);
+/* 📌 Timer Container */
+.timer-container {
+  position: absolute;
+  top: 5%;
+  left: 10%;
+  transform: translate(0, 0);
+  background: rgba(255, 255, 255, 0.1); 
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  backdrop-filter: blur(12px);
+  min-width: 270px;
+  /*border: 2px solid rgba(255, 255, 255, 0.2);*/
 }
 
-.timer {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
+/* ⏱ Timer Display */
 .timer h1 {
-    font-size: 36px;
-    margin: 0;
+  font-size: 36px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+/* 🎛 Timer Buttons */
 .timer-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
 }
 
 .timer-controls button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background: #f39c12;
-    color: white;
-    font-size: 16px;
-    transition: 0.3s;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #ffcc00; /* Yellow background like Task Manager */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .timer-controls button:hover {
-    background: #e67e22;
+  background: #ffdb4d;
+  transform: scale(1.05);
 }
 
+/* ❌ Close Button */
 .close-btn {
-    position: absolute;
-    top: 0px;
-    right: 5px;
-    background: none;
-    border: none;
-    font-size: 10px;
-    cursor: pointer;
-    color: #e74c3c;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #e74c3c;
+  font-weight: bold;
 }
 
 .close-btn:hover {
-    color: #c0392b;
+  color: #c0392b;
+  transform: scale(1.1);
 }
+
+/* 🖥 Responsive Design */
+@media (max-width: 600px) {
+  .timer-container {
+      top: 5%;
+      left: 5%;
+      width: 90%;
+  }
+  
+  .timer h1 {
+      font-size: 30px;
+  }
+  
+  .timer-controls button {
+      padding: 8px 14px;
+      font-size: 14px;
+  }
+}
+
 
 /*Task Css*/
 .task-container {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 80%;
+  left: 45%;
   transform: translate(-50%, -50%);
   background: rgba(255, 255, 255, 0.1);
   padding: 15px;
@@ -212,11 +244,13 @@ body, html {
 
 .task-input button {
   padding: 5px 10px;
-  background: #f39c12;
+  background: #ffcc00;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .task-list {
@@ -257,4 +291,97 @@ body, html {
     font-size: 10px;
     cursor: pointer;
     color: #e74c3c;
+}
+/*Media Player css*/
+.media-player {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 10px;
+  border-radius: 8px;
+  width: 300px;
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.search-bar {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.search-bar-button:hover { 
+  transform: scale(1.2);
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 5px;
+}
+
+.search-bar button {
+  margin-left: 5px;
+}
+
+.video-list {
+  list-style: none;
+  padding: 0;
+}
+
+.video-list li {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 5px 0;
+}
+
+.video-list img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+/* Notes Container */
+.notes-container {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 320px; /* Slightly wider for better readability */
+  backdrop-filter: blur(10px);
+}
+
+/* Resizable Textarea */
+.notes-input textarea {
+  width: 100%;
+  min-height: 120px;
+  max-height: 400px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid rgba(200, 200, 200, 0.5);
+  border-radius: 5px;
+  resize: both; /* Allows resizing both ways */
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  outline: none;
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #e74c3c;
+  transition: transform 0.2s ease-in-out;
+}
+
+.close-btn:hover {
+  transform: scale(1.2); /* Slight zoom effect on hover */
+  color: #c0392b; /* Darker red */
 }
