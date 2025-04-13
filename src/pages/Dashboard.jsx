@@ -29,6 +29,14 @@ const Dashboard = () => {
         >
           Personal Study Room
         </button>
+
+        <button
+          onClick={() => navigate("/video")}
+          className="bg-purple-500 px-6 py-3 rounded-md text-white text-lg hover:bg-purple-600 transition"
+        >
+          Video Chat
+        </button>
+
       </div>
     </div>
   );

@@ -6,6 +6,8 @@ import CreateGroup from "./pages/CreateGroup";
 import StudyGroupChat from "./pages/StudyGroupChat";
 import LandingPage from "./pages/LandingPage"; 
 import PersonalStudyRoom from "./pages/PersonalStudyRoom";
+import StandaloneVideoChat from "./pages/StandaloneVideoChat";
+
 
 
 function App() {
@@ -17,6 +19,11 @@ function App() {
       <Route path="/create-group" element={<CreateGroup />} />
       <Route path="/study-group/:groupId" element={<StudyGroupChat />} />
       <Route path="/personal-study-room" element={<PersonalStudyRoom />} />
+      <Route path="/video" element={<StandaloneVideoChat />} />
+      <Route path="/video/:roomId" element={<StandaloneVideoChat />} />
+
+
+
     </Routes>
   );
 }
