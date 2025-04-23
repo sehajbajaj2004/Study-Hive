@@ -7,7 +7,8 @@ import StudyGroupChat from "./pages/StudyGroupChat";
 import LandingPage from "./pages/LandingPage"; 
 import PersonalStudyRoom from "./pages/PersonalStudyRoom";
 import StandaloneVideoChat from "./pages/StandaloneVideoChat";
-
+import RegistrationPage from "./pages/RegistrationPage";
+import LoginPage from "./pages/LoginPage";
 
 
 function App() {
@@ -21,9 +22,8 @@ function App() {
       <Route path="/personal-study-room" element={<PersonalStudyRoom />} />
       <Route path="/video" element={<StandaloneVideoChat />} />
       <Route path="/video/:roomId" element={<StandaloneVideoChat />} />
-
-
-
+      <Route path="/register" element={<RegistrationPage />} />
+      <Route path="/login" element={<LoginPage />} />
     </Routes>
   );
 }

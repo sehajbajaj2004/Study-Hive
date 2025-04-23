@@ -1,0 +1,20 @@
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyAPAW97gJwJVWnidgO4qTD3Edlqaglg1W4",
+    authDomain: "studyhive2026.firebaseapp.com",
+    projectId: "studyhive2026",
+    storageBucket: "studyhive2026.firebasestorage.app",
+    messagingSenderId: "811066101787",
+    appId: "1:811066101787:web:611c6324a9fdd148a228be"
+  };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize Firestore
+const db = getFirestore(app);
+
+export { db };
