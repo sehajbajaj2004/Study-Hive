@@ -30,9 +30,9 @@ const Hero = () => {
 
           {username === "User" && (
             <div className="mt-10">
-              <Link to="/dashboard">
+              <Link to="/login">
                 <button className="bg-yellow-400 text-black px-8 py-4 rounded-xl font-semibold text-lg hover:bg-yellow-500 transition duration-200">
-                  Get Started
+                  Login
                 </button>
               </Link>
             </div>

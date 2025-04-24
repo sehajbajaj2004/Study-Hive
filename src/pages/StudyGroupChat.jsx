@@ -2,17 +2,19 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import "../styles/chat.css";
+import VideoChat from "../components/VideoChat";
 
-
+// Create a single socket instance
 const socket = io("http://localhost:5000");
 
 const StudyGroupChat = () => {
   const { groupId } = useParams();
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [showVideo, setShowVideo] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // ✅ Persist User ID so it stays the same across refreshes
+  // Persist User ID so it stays the same across refreshes
   const [userId, setUserId] = useState(() => {
     const storedUserId = localStorage.getItem("userId");
     if (storedUserId) return storedUserId;
@@ -68,12 +70,31 @@ const StudyGroupChat = () => {
     }
   };
 
+  // Toggle video chat visibility
+  const toggleVideoChat = () => {
+    setShowVideo(!showVideo);
+  };
+
   return (
-    <div className="chat-container">
+    <div className="study-group-page">
       {/* Chat Header */}
       <div className="chat-header">
-        Study Group Chat (You: {userId})
+        <div>Study Group Chat (You: {userId})</div>
+        <button 
+          onClick={toggleVideoChat} 
+          className={`video-toggle-btn ${showVideo ? 'active' : ''}`}
+        >
+          {showVideo ? '📺 Hide Video' : '📺 Show Video'}
+        </button>
       </div>
+
+      {/* Video Chat Component */}
+      <VideoChat 
+        socket={socket} 
+        roomId={groupId} 
+        userId={userId} 
+        isOpen={showVideo} 
+      />
 
       {/* Chat Messages Section */}
       <div className="messages-container">

@@ -1,4 +1,3 @@
-
 // import express from "express";
 // import dotenv from "dotenv";
 // import http from "http";
@@ -29,39 +28,23 @@
 // const server = http.createServer(app);
 
 // // ✅ Setup CORS (Allow all origins for development)
-// // const cors = require("cors");
-
-// app.use(cors({
-//   origin: "http://localhost:5173",  // your frontend url
-//   methods: ["GET", "POST", "PUT", "DELETE"],
-//   credentials: true
-// }));
-
-// // app.use(cors({ origin: "*", methods: ["GET", "POST", "PUT", "DELETE"], credentials: true }));
+// app.use(cors({ origin: "*", methods: ["GET", "POST", "PUT", "DELETE"], credentials: true }));
 
 // app.use(express.json());
 
 // // ✅ Initialize Socket.io with CORS settings
 // const io = new Server(server, {
-//   cors: {
-//     origin: "http://localhost:5173",
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     credentials: true
-//   }
+//   cors: { origin: "*", methods: ["GET", "POST", "PUT", "DELETE"] },
 // });
 
-
 // // ✅✅✅ Real-Time Chat with Socket.io ✅✅✅
-
 // io.on("connection", (socket) => {
-//   console.log("🔥🔥 THIS IS THE CORRECT SERVER.JS 🔥🔥");
+//   console.log("✅ A user connected");
 
-//   console.log("✅ A user connected:", socket.id);
-
-//   // Existing Chat Room Join
 //   socket.on("joinRoom", async (roomId) => {
-//     console.log("🟢 joinRoom event from:", socket.id, "Room:", roomId);
 //     socket.join(roomId);
+//     console.log(`✅ User joined room: ${roomId}`);
+
 //     try {
 //       const messagesSnapshot = await db.collection("chats").doc(roomId).collection("messages").orderBy("timestamp", "asc").get();
 //       const messages = messagesSnapshot.docs.map(doc => doc.data());
@@ -71,9 +54,7 @@
 //     }
 //   });
 
-//   // Existing Chat message
 //   socket.on("message", async ({ roomId, user, text }) => {
-//     console.log("✉️ Message event from:", socket.id, "Room:", roomId);
 //     try {
 //       const message = { user, text, timestamp: admin.firestore.FieldValue.serverTimestamp() };
 //       await db.collection("chats").doc(roomId).collection("messages").add(message);
@@ -83,38 +64,7 @@
 //     }
 //   });
 
-//   // Video Chat Room Join
-// // Add these socket event handlers inside your existing io.on("connection",...) block
-
-// socket.on("join-video-room", ({ roomId, userId }) => {
-//   socket.join(roomId);
-//   socket.userId = userId;
-
-//   const clientsInRoom = Array.from(io.sockets.adapter.rooms.get(roomId) || []);
-//   clientsInRoom.forEach((clientId) => {
-//     const clientSocket = io.sockets.sockets.get(clientId);
-//     if (clientSocket && clientSocket.userId && clientSocket.id !== socket.id) {
-//       socket.emit("user-joined", clientSocket.userId);
-//       clientSocket.emit("user-joined", userId);
-//     }
-//   });
-// });
-
-// socket.on("offer", ({ offer, to }) => {
-//   const target = [...io.sockets.sockets.values()].find(s => s.userId === to);
-//   if (target) target.emit("offer", { offer, from: socket.userId });
-// });
-
-// socket.on("answer", ({ answer, to }) => {
-//   const target = [...io.sockets.sockets.values()].find(s => s.userId === to);
-//   if (target) target.emit("answer", { answer, from: socket.userId });
-// });
-
-// socket.on("ice-candidate", ({ candidate, to }) => {
-//   const target = [...io.sockets.sockets.values()].find(s => s.userId === to);
-//   if (target) target.emit("ice-candidate", { candidate, from: socket.userId });
-// });
-
+//   socket.on("disconnect", () => console.log("❌ User disconnected"));
 // });
 
 // // ✅✅✅ Study Groups APIs ✅✅✅
@@ -223,7 +173,6 @@
 // const PORT = process.env.PORT || 5000;
 // server.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
 
-
 import express from "express";
 import dotenv from "dotenv";
 import http from "http";
@@ -274,15 +223,11 @@ const io = new Server(server, {
     credentials: true
   }
 });
-const roomUsers = {};  // <-- global object to track users in video rooms
-
 
 
 // ✅✅✅ Real-Time Chat with Socket.io ✅✅✅
 
 io.on("connection", (socket) => {
-  console.log("🔥🔥 THIS IS THE CORRECT SERVER.JS 🔥🔥");
-
   console.log("✅ A user connected:", socket.id);
 
   // Existing Chat Room Join
@@ -311,64 +256,48 @@ io.on("connection", (socket) => {
   });
 
   // Video Chat Room Join
-// Add these socket event handlers inside your existing io.on("connection",...) block
-socket.on("join-video-room", ({ roomId, userId }) => {
-  socket.join(roomId);
-  socket.userId = userId;
+  socket.on("join-video-room", (roomId) => {
+    console.log("🎥 join-video-room event from:", socket.id, "Room:", roomId);
+    
+    socket.join(roomId);
+  
+    const clients = Array.from(io.sockets.adapter.rooms.get(roomId) || []);
+    console.log("Clients in room:", clients);
+  
+    clients.forEach(clientId => {
+      if (clientId !== socket.id) {
+        console.log("Asking", clientId, "to create PeerConnection with", socket.id);
+        socket.to(clientId).emit("user-joined", socket.id);
+        socket.emit("user-joined", clientId);
+      }
+    });
+  });
+  
+  
 
-  if (!roomUsers[roomId]) {
-    roomUsers[roomId] = [];
-  }
+  // Offer
+  socket.on("offer", (data) => {
+    console.log("📞 Offer from:", socket.id, "to:", data.target);
+    socket.to(data.target).emit("offer", data);
+  });
 
-  if (!roomUsers[roomId].includes(userId)) {
-    roomUsers[roomId].push(userId);
-  }
+  // Answer
+  socket.on("answer", (data) => {
+    console.log("✅ Answer from:", socket.id, "to:", data.target);
+    socket.to(data.target).emit("answer", data);
+  });
 
-  // Inform all users in room
-  io.to(roomId).emit("user-list", roomUsers[roomId]);
+  // ICE Candidate
+  socket.on("ice-candidate", (data) => {
+    console.log("❄️ ICE Candidate from:", socket.id, "to:", data.target);
+    socket.to(data.target).emit("ice-candidate", data);
+  });
 
-  // Emit existing users to new user
-  const clientsInRoom = Array.from(io.sockets.adapter.rooms.get(roomId) || []);
-  clientsInRoom.forEach((clientId) => {
-    const clientSocket = io.sockets.sockets.get(clientId);
-    if (clientSocket && clientSocket.userId && clientSocket.id !== socket.id) {
-      socket.emit("user-joined", clientSocket.userId);
-      clientSocket.emit("user-joined", userId);
-    }
+  socket.on("disconnect", () => {
+    console.log("❌ User disconnected:", socket.id);
   });
 });
 
-// VIDEO CHAT SIGNALING
-socket.on("offer", ({ offer, to }) => {
-  const target = [...io.sockets.sockets.values()].find(s => s.userId === to);
-  if (target) target.emit("offer", { offer, from: socket.userId });
-});
-
-socket.on("answer", ({ answer, to }) => {
-  const target = [...io.sockets.sockets.values()].find(s => s.userId === to);
-  if (target) target.emit("answer", { answer, from: socket.userId });
-});
-
-socket.on("ice-candidate", ({ candidate, to }) => {
-  const target = [...io.sockets.sockets.values()].find(s => s.userId === to);
-  if (target) target.emit("ice-candidate", { candidate, from: socket.userId });
-});
-
-// HANDLE DISCONNECT
-socket.on("disconnect", () => {
-  console.log("❌ Disconnected:", socket.id);
-
-  for (const roomId in roomUsers) {
-    if (roomUsers.hasOwnProperty(roomId)) {
-      roomUsers[roomId] = roomUsers[roomId].filter(id => id !== socket.userId);
-
-      // Notify other users in the room
-      io.to(roomId).emit("user-list", roomUsers[roomId]);
-    }
-  }
-});
-
-});
 
 // ✅✅✅ Study Groups APIs ✅✅✅
 app.post("/create-group", async (req, res) => {
