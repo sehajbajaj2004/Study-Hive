@@ -1,0 +1,181 @@
+{
+  "hash": "f2e6838a",
+  "configHash": "05248449",
+  "lockfileHash": "409dc69a",
+  "browserHash": "8b641aa7",
+  "optimized": {
+    "@react-three/drei": {
+      "src": "../../node_modules/@react-three/drei/index.js",
+      "file": "@react-three_drei.js",
+      "fileHash": "a4108d3d",
+      "needsInterop": false
+    },
+    "@react-three/fiber": {
+      "src": "../../node_modules/@react-three/fiber/dist/react-three-fiber.esm.js",
+      "file": "@react-three_fiber.js",
+      "fileHash": "603eae70",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "8b5e0fb5",
+      "needsInterop": false
+    },
+    "bcryptjs": {
+      "src": "../../node_modules/bcryptjs/index.js",
+      "file": "bcryptjs.js",
+      "fileHash": "79a88af2",
+      "needsInterop": false
+    },
+    "firebase/app": {
+      "src": "../../node_modules/firebase/app/dist/esm/index.esm.js",
+      "file": "firebase_app.js",
+      "fileHash": "3f1a7124",
+      "needsInterop": false
+    },
+    "firebase/auth": {
+      "src": "../../node_modules/firebase/auth/dist/esm/index.esm.js",
+      "file": "firebase_auth.js",
+      "fileHash": "035d368f",
+      "needsInterop": false
+    },
+    "firebase/firestore": {
+      "src": "../../node_modules/firebase/firestore/dist/esm/index.esm.js",
+      "file": "firebase_firestore.js",
+      "fileHash": "45fbe9f9",
+      "needsInterop": false
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "5ada74d1",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "85f581ee",
+      "needsInterop": true
+    },
+    "react-draggable": {
+      "src": "../../node_modules/react-draggable/build/cjs/cjs.js",
+      "file": "react-draggable.js",
+      "fileHash": "980594de",
+      "needsInterop": true
+    },
+    "react-icons/fa": {
+      "src": "../../node_modules/react-icons/fa/index.mjs",
+      "file": "react-icons_fa.js",
+      "fileHash": "4ee11d0a",
+      "needsInterop": false
+    },
+    "react-icons/io5": {
+      "src": "../../node_modules/react-icons/io5/index.mjs",
+      "file": "react-icons_io5.js",
+      "fileHash": "40edcf2e",
+      "needsInterop": false
+    },
+    "react-player": {
+      "src": "../../node_modules/react-player/lib/index.js",
+      "file": "react-player.js",
+      "fileHash": "f9932ca7",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "bdd5da22",
+      "needsInterop": false
+    },
+    "socket.io-client": {
+      "src": "../../node_modules/socket.io-client/build/esm/index.js",
+      "file": "socket__io-client.js",
+      "fileHash": "4fc65092",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "Twitch-V7R646TI": {
+      "file": "Twitch-V7R646TI.js"
+    },
+    "DailyMotion-K5KD2S7V": {
+      "file": "DailyMotion-K5KD2S7V.js"
+    },
+    "Mixcloud-T3OU4IFA": {
+      "file": "Mixcloud-T3OU4IFA.js"
+    },
+    "Vidyard-KNLRY7K2": {
+      "file": "Vidyard-KNLRY7K2.js"
+    },
+    "Kaltura-3PY4QVF7": {
+      "file": "Kaltura-3PY4QVF7.js"
+    },
+    "FilePlayer-5QYJ4KLL": {
+      "file": "FilePlayer-5QYJ4KLL.js"
+    },
+    "Preview-OEU6J7H5": {
+      "file": "Preview-OEU6J7H5.js"
+    },
+    "vision_bundle-NVRH4MT4": {
+      "file": "vision_bundle-NVRH4MT4.js"
+    },
+    "YouTube-PI7Q6P76": {
+      "file": "YouTube-PI7Q6P76.js"
+    },
+    "SoundCloud-UXHOIGZA": {
+      "file": "SoundCloud-UXHOIGZA.js"
+    },
+    "Vimeo-NTQBCJ4L": {
+      "file": "Vimeo-NTQBCJ4L.js"
+    },
+    "Mux-WQOPYGHJ": {
+      "file": "Mux-WQOPYGHJ.js"
+    },
+    "Facebook-O62TJSSM": {
+      "file": "Facebook-O62TJSSM.js"
+    },
+    "Streamable-MVTZEVHE": {
+      "file": "Streamable-MVTZEVHE.js"
+    },
+    "Wistia-OJHF3DUC": {
+      "file": "Wistia-OJHF3DUC.js"
+    },
+    "chunk-U5VDBINP": {
+      "file": "chunk-U5VDBINP.js"
+    },
+    "chunk-JL2MEAST": {
+      "file": "chunk-JL2MEAST.js"
+    },
+    "chunk-T7OI7B56": {
+      "file": "chunk-T7OI7B56.js"
+    },
+    "hls-AAGQ45T2": {
+      "file": "hls-AAGQ45T2.js"
+    },
+    "chunk-6GZBTLDN": {
+      "file": "chunk-6GZBTLDN.js"
+    },
+    "chunk-CJK34UIW": {
+      "file": "chunk-CJK34UIW.js"
+    },
+    "chunk-T2F7LD4Q": {
+      "file": "chunk-T2F7LD4Q.js"
+    },
+    "chunk-UPJ66ANQ": {
+      "file": "chunk-UPJ66ANQ.js"
+    },
+    "chunk-ZKXKLWTW": {
+      "file": "chunk-ZKXKLWTW.js"
+    },
+    "chunk-EBHHJRO4": {
+      "file": "chunk-EBHHJRO4.js"
+    },
+    "chunk-W24JOBID": {
+      "file": "chunk-W24JOBID.js"
+    },
+    "chunk-EWTE5DHJ": {
+      "file": "chunk-EWTE5DHJ.js"
+    }
+  }
+}
