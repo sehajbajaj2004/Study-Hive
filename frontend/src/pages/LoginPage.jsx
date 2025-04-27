@@ -3,12 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import './auth.css';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { db } from '../../firebaseConfig';
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import bcrypt from 'bcryptjs';
+import { doc, getDoc } from 'firebase/firestore';
 
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({
-    id: '',
+    email: '',
     password: ''
   });
 
@@ -20,53 +19,94 @@ const LoginPage = () => {
     setLoginData({ ...loginData, [name]: value });
   };
 
+  const fetchUserProfile = async (userId) => {
+    try {
+      const docRef = doc(db, "users", userId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const userProfile = docSnap.data();
+        const fullProfile = {
+          userId: userId,
+          email: userProfile.email || "",
+          college: userProfile.collegeName || "",
+          year: userProfile.yearOfStudy || "",
+          interest: userProfile.interests || "",
+          gender: userProfile.gender || "",
+          location: userProfile.location || "",
+          preferredLanguage: userProfile.preferredLanguage || ""
+        };
+        localStorage.setItem("userData", JSON.stringify(fullProfile));
+        console.log("✅ User profile loaded and saved:", fullProfile);
+      } else {
+        console.error("❌ No user profile found in Firestore!");
+      }
+    } catch (error) {
+      console.error("❌ Error fetching user profile:", error.message);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Query Firestore to find the user by email
-      const q = query(collection(db, 'users'), where('email', '==', loginData.id));
-      const querySnapshot = await getDocs(q);
+      // 1. Sign in using Firebase Auth
+      const { user } = await signInWithEmailAndPassword(
+        auth,
+        loginData.email,
+        loginData.password
+      );
 
-      if (querySnapshot.empty) {
-        alert('No user found with this email.');
-        return;
-      }
+      // 2. Fetch and store user profile
+      await fetchUserProfile(user.uid);
 
-      // Assume the first document is the correct user
-      const userDoc = querySnapshot.docs[0];
-      const userData = userDoc.data();
-
-      // Verify the password
-      const isPasswordValid = bcrypt.compareSync(loginData.password, userData.password);
-
-      if (isPasswordValid) {
-        console.log('User signed in:', userData);
-        navigate('/dashboard');
-      } else {
-        alert('Invalid password. Please try again.');
-      }
+      alert("✅ Login successful!");
+      navigate('/dashboard');
     } catch (error) {
-      console.error('Error signing in:', error);
+      console.error('❌ Error signing in:', error.message);
       alert('Login failed. Please check your email and password.');
     }
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input type="email" name="id" placeholder="Email" value={loginData.id} onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" value={loginData.password} onChange={handleChange} required />
-        <button type="submit">Login</button>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 bg-gray-800 p-8 rounded-lg">
+        <h2 className="text-2xl font-bold mb-4">Login</h2>
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={loginData.email}
+          onChange={handleChange}
+          required
+          className="px-4 py-2 rounded text-black"
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={loginData.password}
+          onChange={handleChange}
+          required
+          className="px-4 py-2 rounded text-black"
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition duration-200"
+        >
+          Login
+        </button>
       </form>
-      <div className="mt-4">
+
+      <div className="mt-6">
         <Link to="/register">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
+          <button className="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 transition duration-200">
             New User? Register
           </button>
         </Link>
       </div>
-    </>
+    </div>
   );
 };
 
-export default LoginPage; 
+export default LoginPage;

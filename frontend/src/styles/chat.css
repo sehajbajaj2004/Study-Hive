@@ -109,6 +109,11 @@
   padding: 12px 24px;
   cursor: pointer;
   transition: background-color 0.2s;
+  height: auto !important; /* Override any set height, so padding controls it */
+  padding-top: 8px !important; /* Adjust padding to make it smaller */
+  padding-bottom: 8px !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
 }
 
 .chat-input button:hover {

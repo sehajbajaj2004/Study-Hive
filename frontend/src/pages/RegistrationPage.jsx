@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import './auth.css';
-import { db } from '../../firebaseConfig';
-import { collection, addDoc } from 'firebase/firestore';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import bcrypt from 'bcryptjs';
+import { db, auth } from '../../firebaseConfig'; // Make sure you import auth
+import { collection, doc, setDoc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const RegistrationPage = () => {
   const [formData, setFormData] = useState({
@@ -18,8 +17,6 @@ const RegistrationPage = () => {
   });
   const [showPopup, setShowPopup] = useState(false);
 
-  const auth = getAuth();
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -27,23 +24,25 @@ const RegistrationPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted');
-    console.log('Form data:', formData);
+    console.log('Form submitted:', formData);
     try {
-      // Hash the password
-      const salt = bcrypt.genSaltSync(10);
-      const hashedPassword = bcrypt.hashSync(formData.password, salt);
+      // 1. Create Firebase Auth user
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
 
-      // Store user data in Firestore
-      await addDoc(collection(db, 'users'), {
+      // 2. Save extra profile info to Firestore using user.uid
+      await setDoc(doc(db, 'users', user.uid), {
         email: formData.email,
-        password: hashedPassword,
         collegeName: formData.collegeName,
         yearOfStudy: formData.yearOfStudy,
         interests: formData.interests,
         gender: formData.gender,
         location: formData.location,
-        preferredLanguage: formData.preferredLanguage
+        preferredLanguage: formData.preferredLanguage,
+        createdAt: new Date()
       });
 
       setShowPopup(true); // Show popup on successful registration
@@ -69,14 +68,15 @@ const RegistrationPage = () => {
         <input type="text" name="interests" placeholder="Interests" value={formData.interests} onChange={handleChange} required />
         <select name="gender" value={formData.gender} onChange={handleChange} required>
           <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
         </select>
         <input type="text" name="location" placeholder="Location" value={formData.location} onChange={handleChange} required />
         <input type="text" name="preferredLanguage" placeholder="Preferred Language" value={formData.preferredLanguage} onChange={handleChange} required />
         <button type="submit">Register</button>
       </form>
+
       {showPopup && (
         <div className="popup">
           <div className="popup-content">

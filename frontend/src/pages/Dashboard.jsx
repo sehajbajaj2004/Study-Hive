@@ -1,8 +1,43 @@
 import React from "react";
+import {useEffect} from "react";
+import { useSocket } from "../context/SocketProvider";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const socket = useSocket();
+  
+  const handleFindBuddy = () => {
+    const userData = JSON.parse(localStorage.getItem("userData")); // Must exist in localStorage
+
+    if (socket && userData) {
+      socket.emit('join-matchmaking-queue', userData);
+      navigate("/finding-buddy"); // ✅ After emitting, move to finding-buddy screen
+    } else {
+      alert("Socket not ready or user data missing!");
+    }
+  };
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('matched', ({ groupId }) => {
+        navigate(`/study-group/${groupId}`);
+      });
+
+      return () => {
+        socket.off('matched');
+      };
+    }
+  }, [socket, navigate]);
+
+  if (!socket) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
+        <h2 className="text-2xl">Connecting to server...</h2>
+      </div>
+    );
+  }
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-6">
@@ -21,6 +56,13 @@ const Dashboard = () => {
           className="bg-green-500 px-6 py-3 rounded-md text-white text-lg hover:bg-green-600 transition"
         >
           Create a Study Group
+        </button>
+
+        <button 
+          onClick={handleFindBuddy} 
+          className="bg-yellow-500 text-white px-6 py-3 rounded-md text-lg hover:bg-yellow-600 transition"
+        >
+          Find Study Buddy
         </button>
 
         <button
